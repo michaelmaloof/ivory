@@ -43,8 +43,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        roundButton()
-        
         previewView.hidden = true
         capturedImage.hidden = true
         capturePhoto.hidden = true
@@ -96,13 +94,6 @@ class ViewController: UIViewController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
-    }
-    
-    func roundButton(){
-        capturePhoto.backgroundColor = UIColor.clearColor()
-        capturePhoto.layer.cornerRadius = 5
-        capturePhoto.layer.borderWidth = 1
-        capturePhoto.layer.borderColor = UIColor.blackColor().CGColor
     }
 
 }

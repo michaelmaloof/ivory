@@ -14,6 +14,7 @@
 		228148F71CBB0EE2004662BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 228148F51CBB0EE2004662BF /* LaunchScreen.storyboard */; };
 		228149021CBB0EE2004662BF /* IvoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228149011CBB0EE2004662BF /* IvoryTests.swift */; };
 		2281490D1CBB0EE2004662BF /* IvoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281490C1CBB0EE2004662BF /* IvoryUITests.swift */; };
+		2B2E74571CDBD61500C8D317 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E74561CDBD61500C8D317 /* CustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		228149081CBB0EE2004662BF /* IvoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IvoryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2281490C1CBB0EE2004662BF /* IvoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IvoryUITests.swift; sourceTree = "<group>"; };
 		2281490E1CBB0EE2004662BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B2E74561CDBD61500C8D317 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,9 @@
 		228148EB1CBB0EE2004662BF /* Ivory */ = {
 			isa = PBXGroup;
 			children = (
+				2B2E74551CDBD5DB00C8D317 /* Model */,
+				2B2E74541CDBD5D200C8D317 /* View */,
+				2B2E74531CDBD5C600C8D317 /* Controller */,
 				228148EC1CBB0EE2004662BF /* AppDelegate.swift */,
 				228148EE1CBB0EE2004662BF /* ViewController.swift */,
 				228148F01CBB0EE2004662BF /* Main.storyboard */,
@@ -123,6 +128,28 @@
 				2281490E1CBB0EE2004662BF /* Info.plist */,
 			);
 			path = IvoryUITests;
+			sourceTree = "<group>";
+		};
+		2B2E74531CDBD5C600C8D317 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		2B2E74541CDBD5D200C8D317 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2B2E74561CDBD61500C8D317 /* CustomButton.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		2B2E74551CDBD5DB00C8D317 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +285,7 @@
 			files = (
 				228148EF1CBB0EE2004662BF /* ViewController.swift in Sources */,
 				228148ED1CBB0EE2004662BF /* AppDelegate.swift in Sources */,
+				2B2E74571CDBD61500C8D317 /* CustomButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +512,7 @@
 				228149131CBB0EE2004662BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		228149141CBB0EE2004662BF /* Build configuration list for PBXNativeTarget "IvoryTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +521,7 @@
 				228149161CBB0EE2004662BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		228149171CBB0EE2004662BF /* Build configuration list for PBXNativeTarget "IvoryUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +530,7 @@
 				228149191CBB0EE2004662BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
