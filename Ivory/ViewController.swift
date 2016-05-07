@@ -9,91 +9,128 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //IBOutlets are done here
     
     //Camera Elements
+    @IBOutlet weak var cameraPreviewView: UIView!
     @IBOutlet weak var capturePhoto: UIButton!
     @IBOutlet weak var capturedImage: UIImageView!
     @IBOutlet weak var taglineLabel: UILabel!
-    @IBOutlet weak var previewView: UIView!
+    @IBOutlet var imageTapRecognizer: UITapGestureRecognizer!
+    
     //Camera Variables
-    var captureSession: AVCaptureSession?
-    var stillImageOutput: AVCaptureStillImageOutput?
-    var previewLayer: AVCaptureVideoPreviewLayer?
-
-    //IBActions are done here
-    @IBAction func captureButtonWasTapped(sender: UIButton) {
-        if let videoConnection = stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
-            videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
-            stillImageOutput?.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {(sampleBuffer, error) in
-                if (sampleBuffer != nil) {
-                    let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-                    let dataProvider = CGDataProviderCreateWithCFData(imageData)
-                    let cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
-                    
-                    let image = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right)
-                    self.capturedImage.image = image
-                }
-            })
-        }
-    }
+    var captureSession: AVCaptureSession!
+    var stillImageOutput: AVCaptureStillImageOutput!
+    var previewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        previewView.hidden = true
-        capturedImage.hidden = true
-        capturePhoto.hidden = true
+        capturedImage.layer.cornerRadius = capturedImage.layer.frame.size.width / 2
+        
+        toggleCapture(true)
+        
+        //Click Image To Show ImagePicker
+        let imageTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.photoImagePressed(_:)))
+        capturedImage.userInteractionEnabled = true
+        capturedImage.addGestureRecognizer(imageTapGestureRecognizer)
         
         captureSession = AVCaptureSession()
-        captureSession!.sessionPreset = AVCaptureSessionPresetPhoto
+        captureSession.sessionPreset = AVCaptureSessionPresetPhoto
         
         let backCamera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         
-        var error: NSError?
         var input: AVCaptureDeviceInput!
+        
         do {
             input = try AVCaptureDeviceInput(device: backCamera)
-        } catch let error1 as NSError {
-            error = error1
+        } catch let error as NSError {
+            print(error.debugDescription)
             input = nil
         }
         
-        if error == nil && captureSession!.canAddInput(input) {
-            captureSession!.addInput(input)
+        if captureSession.canAddInput(input) {
+            captureSession.addInput(input)
             
             stillImageOutput = AVCaptureStillImageOutput()
-            stillImageOutput!.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
-            if captureSession!.canAddOutput(stillImageOutput) {
-                captureSession!.addOutput(stillImageOutput)
+            stillImageOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+            
+            if captureSession.canAddOutput(stillImageOutput) {
+                captureSession.addOutput(stillImageOutput)
                 
                 previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-                previewLayer!.videoGravity = AVLayerVideoGravityResizeAspect
-                previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
-                previewView.layer.addSublayer(previewLayer!)
+                previewLayer.videoGravity = AVLayerVideoGravityResizeAspect
+                previewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
+                cameraPreviewView.layer.addSublayer(previewLayer)
                 
-                captureSession!.startRunning()
+                captureSession.startRunning()
                 taglineLabel.hidden = true
-                previewView.hidden = false
-                capturedImage.hidden = false
-                capturePhoto.hidden = false
+                toggleCapture(false)
             }
         }
+        
     }
         
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        previewLayer!.frame = previewView.bounds
+        let cameraBounds = cameraPreviewView.bounds
+        previewLayer.frame = cameraBounds
+    }
+    
+    //IBActions are done here
+    @IBAction func captureButtonWasTapped(sender: UIButton) {
+        let videoConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo)
+        videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
+        stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {(sampleBuffer, error) in
+            if (sampleBuffer != nil) {
+                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+                let dataProvider = CGDataProviderCreateWithCFData(imageData)
+                let cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
+                
+                let image = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right)
+                UIImageWriteToSavedPhotosAlbum(image, "image:didFinishSavingWithError:contextInfo:", nil, nil)
+                self.capturedImage.image = image
+            }
+        })
     }
     
     @IBAction func didPressTakeAnother(sender: AnyObject) {
-        captureSession!.startRunning()
+        captureSession.startRunning()
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func toggleCapture(state: Bool) {
+        capturedImage.hidden = state
+        capturePhoto.hidden = state
+        cameraPreviewView.hidden = state
+    }
+    
+    func imageTapped(img: AnyObject) {
+        UIImageWriteToSavedPhotosAlbum(capturedImage.image!, nil, nil, nil)
+    }
+    
+    func image(image: UIImage, didFinishSavingWithError
+        error: NSErrorPointer, contextInfo:UnsafePointer<Void>) {
+        
+        if error != nil {
+            let alert = UIAlertController(title: "Save Failed", message: "Failed to save image", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+            
+            alert.addAction(cancelAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+
+    func photoImagePressed(gestureRecognizer: UITapGestureRecognizer) {
+        let controller = UIImagePickerController()
+        presentViewController(controller, animated: true, completion: nil)
     }
 
 }

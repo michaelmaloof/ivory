@@ -12,7 +12,7 @@ class CustomButton: UIButton {
 
     override func awakeFromNib() {
         self.backgroundColor = UIColor.clearColor()
-        layer.cornerRadius = 5
+        layer.cornerRadius = layer.frame.size.width / 2
         layer.borderWidth = 1
         layer.borderColor = UIColor.blackColor().CGColor
     }
