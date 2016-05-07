@@ -24,6 +24,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var captureSession: AVCaptureSession!
     var stillImageOutput: AVCaptureStillImageOutput!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    var stillImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,9 +90,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let dataProvider = CGDataProviderCreateWithCFData(imageData)
                 let cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
                 
-                let image = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right)
-                UIImageWriteToSavedPhotosAlbum(image, "image:didFinishSavingWithError:contextInfo:", nil, nil)
-                self.capturedImage.image = image
+                self.stillImage = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right)
+                UIImageWriteToSavedPhotosAlbum(self.stillImage, "image:didFinishSavingWithError:contextInfo:", nil, nil)
+                self.capturedImage.image = self.stillImage
+                self.performSegueWithIdentifier("showImage", sender: nil)
             }
         })
     }
@@ -130,7 +132,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     func photoImagePressed(gestureRecognizer: UITapGestureRecognizer) {
         let controller = UIImagePickerController()
+        controller.delegate = self
         presentViewController(controller, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        stillImage = image
+        dismissViewControllerAnimated(true) { 
+            self.performSegueWithIdentifier("showImage", sender: nil)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showImage" {
+            let controller = segue.destinationViewController as! PhotoVC
+            controller.stillImage = stillImage
+        }
     }
 
 }

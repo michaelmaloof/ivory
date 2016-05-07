@@ -15,6 +15,8 @@
 		228149021CBB0EE2004662BF /* IvoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228149011CBB0EE2004662BF /* IvoryTests.swift */; };
 		2281490D1CBB0EE2004662BF /* IvoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281490C1CBB0EE2004662BF /* IvoryUITests.swift */; };
 		2B2E74571CDBD61500C8D317 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E74561CDBD61500C8D317 /* CustomButton.swift */; };
+		2BAC55A21CDE7FF300973D8E /* PhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAC55A11CDE7FF300973D8E /* PhotoVC.swift */; };
+		2BAC55A41CDE84B600973D8E /* PhotoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAC55A31CDE84B600973D8E /* PhotoButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		2281490C1CBB0EE2004662BF /* IvoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IvoryUITests.swift; sourceTree = "<group>"; };
 		2281490E1CBB0EE2004662BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B2E74561CDBD61500C8D317 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		2BAC55A11CDE7FF300973D8E /* PhotoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoVC.swift; sourceTree = "<group>"; };
+		2BAC55A31CDE84B600973D8E /* PhotoButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +107,6 @@
 				2B2E74541CDBD5D200C8D317 /* View */,
 				2B2E74531CDBD5C600C8D317 /* Controller */,
 				228148EC1CBB0EE2004662BF /* AppDelegate.swift */,
-				228148EE1CBB0EE2004662BF /* ViewController.swift */,
 				228148F01CBB0EE2004662BF /* Main.storyboard */,
 				228148F31CBB0EE2004662BF /* Assets.xcassets */,
 				228148F51CBB0EE2004662BF /* LaunchScreen.storyboard */,
@@ -133,6 +136,8 @@
 		2B2E74531CDBD5C600C8D317 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				228148EE1CBB0EE2004662BF /* ViewController.swift */,
+				2BAC55A11CDE7FF300973D8E /* PhotoVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -141,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				2B2E74561CDBD61500C8D317 /* CustomButton.swift */,
+				2BAC55A31CDE84B600973D8E /* PhotoButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -287,6 +293,8 @@
 				228148EF1CBB0EE2004662BF /* ViewController.swift in Sources */,
 				228148ED1CBB0EE2004662BF /* AppDelegate.swift in Sources */,
 				2B2E74571CDBD61500C8D317 /* CustomButton.swift in Sources */,
+				2BAC55A21CDE7FF300973D8E /* PhotoVC.swift in Sources */,
+				2BAC55A41CDE84B600973D8E /* PhotoButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
