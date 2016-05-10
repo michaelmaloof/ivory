@@ -90,92 +90,12 @@
                         <outlet property="capturedImage" destination="vPs-K9-gek" id="jed-hk-PDR"/>
                         <outlet property="imageTapRecognizer" destination="HpG-zR-uJQ" id="lpb-OG-aZD"/>
                         <outlet property="taglineLabel" destination="OAL-fx-aSl" id="G9T-ME-qs1"/>
-                        <segue destination="rG9-hE-Ebs" kind="presentation" identifier="showImage" id="zSA-rT-Mff"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="HpG-zR-uJQ"/>
             </objects>
             <point key="canvasLocation" x="141" y="306"/>
-        </scene>
-        <!--PhotoVC-->
-        <scene sceneID="Akj-uj-6o9">
-            <objects>
-                <viewController id="rG9-hE-Ebs" customClass="PhotoVC" customModule="Ivory" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="mnQ-qC-60F"/>
-                        <viewControllerLayoutGuide type="bottom" id="w5o-7A-pvU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XDN-US-Gwb">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vff-bS-fv2">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OeH-r3-wY4">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtP-cS-99S" customClass="PhotoButton" customModule="Ivory" customModuleProvider="target">
-                                        <rect key="frame" x="460" y="542" width="120" height="38"/>
-                                        <color key="backgroundColor" red="0.29803921570000003" green="0.85098039219999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="hKV-ca-Q25"/>
-                                            <constraint firstAttribute="height" constant="38" id="pR5-KM-ySr"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Baskerville" family="Baskerville" pointSize="15"/>
-                                        <state key="normal" title="CONTINUE">
-                                            <color key="titleColor" red="1" green="1" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="continueButtonPressed:" destination="rG9-hE-Ebs" eventType="touchUpInside" id="c1p-yB-TpD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzl-pT-J5i" customClass="PhotoButton" customModule="Ivory" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="542" width="120" height="38"/>
-                                        <color key="backgroundColor" red="1" green="0.26252467930000001" blue="0.28933735459999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="gSJ-FG-HnE"/>
-                                            <constraint firstAttribute="height" constant="38" id="niz-Ck-Q1O"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Baskerville" family="Baskerville" pointSize="15"/>
-                                        <state key="normal" title="CANCEL">
-                                            <color key="titleColor" red="1" green="1" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButtonPressed:" destination="rG9-hE-Ebs" eventType="touchUpInside" id="3YW-sm-laC"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="OeH-r3-wY4" firstAttribute="top" secondItem="Vff-bS-fv2" secondAttribute="top" id="5Oz-Ey-KUr"/>
-                                    <constraint firstAttribute="trailing" secondItem="rtP-cS-99S" secondAttribute="trailing" constant="20" id="Cd0-Ym-b3M"/>
-                                    <constraint firstAttribute="bottom" secondItem="OeH-r3-wY4" secondAttribute="bottom" id="aCL-6b-oRV"/>
-                                    <constraint firstItem="Vzl-pT-J5i" firstAttribute="leading" secondItem="Vff-bS-fv2" secondAttribute="leading" constant="20" id="eR4-1A-5ut"/>
-                                    <constraint firstItem="OeH-r3-wY4" firstAttribute="leading" secondItem="Vff-bS-fv2" secondAttribute="leading" id="gnb-oW-tFk"/>
-                                    <constraint firstAttribute="trailing" secondItem="OeH-r3-wY4" secondAttribute="trailing" id="nyJ-Ql-pZF"/>
-                                    <constraint firstAttribute="bottom" secondItem="Vzl-pT-J5i" secondAttribute="bottom" constant="20" id="p0X-oY-k3t"/>
-                                    <constraint firstAttribute="bottom" secondItem="rtP-cS-99S" secondAttribute="bottom" constant="20" id="pps-oZ-407"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="Vff-bS-fv2" firstAttribute="leading" secondItem="XDN-US-Gwb" secondAttribute="leading" id="RIB-Me-Z8W"/>
-                            <constraint firstItem="w5o-7A-pvU" firstAttribute="top" secondItem="Vff-bS-fv2" secondAttribute="bottom" id="RLB-5e-yXj"/>
-                            <constraint firstItem="Vff-bS-fv2" firstAttribute="top" secondItem="XDN-US-Gwb" secondAttribute="top" id="eyV-it-LWP"/>
-                            <constraint firstAttribute="trailing" secondItem="Vff-bS-fv2" secondAttribute="trailing" id="f1N-k6-sY8"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="Vff-bS-fv2" id="J6L-Vh-lit"/>
-                        <outlet property="stillImageView" destination="OeH-r3-wY4" id="2zm-Na-vkG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WOL-Gq-Q2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="882" y="306"/>
         </scene>
     </scenes>
     <resources>
