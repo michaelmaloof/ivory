@@ -17,6 +17,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var capturedImage: UIImageView!
     @IBOutlet weak var taglineLabel: UILabel!
     @IBOutlet var imageTapRecognizer: UITapGestureRecognizer!
+    var stillImageView: UIImageView!
     
     //Camera Variables
     var captureSession: AVCaptureSession!
@@ -24,8 +25,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var previewLayer: AVCaptureVideoPreviewLayer!
     var stillImage: UIImage!
     
+    
 //*********************************
-//Stack Changes
+//Stack
 //*********************************
     
     override func viewDidLoad() {
@@ -39,10 +41,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        //set the bounds of the camera
         self.setCameraBounds()
     }
     
     override func prefersStatusBarHidden() -> Bool {
+        //hide the status bar to keep the design cleaner
         return true
     }
     
@@ -67,9 +71,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.stillImage = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right)
                 UIImageWriteToSavedPhotosAlbum(self.stillImage, "image:didFinishSavingWithError:contextInfo:", nil, nil)
                 self.capturedImage.image = self.stillImage
-                self.performSegueWithIdentifier("showImage", sender: nil)
+                //we have saved the photo to the camera roll, now display it
+                self.displayCapturedPhoto()
             }
         })
+    }
+    
+    /**
+     Display the captured photo
+    */
+    func displayCapturedPhoto(){
+        self.toggleCapture(true)
+        self.stillImageView.image = self.stillImage
+        self.stillImageView.hidden = false
     }
     
     /**
@@ -94,7 +108,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     /**
     Image was tapped, save the photo (no longer used)
-     
+
      @param img the image tapped
      */
     func imageTapped(img: AnyObject) {
@@ -140,16 +154,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showImage" {
-            let controller = segue.destinationViewController as! PhotoVC
-            controller.stillImage = stillImage
-        }
+
     }
     
 //*********************************
 //Mark Camera & Photo Set-up
 //*********************************
     
+    /**
+     Implement the camera
+     */
     func establishCamera(){
         
         captureSession = AVCaptureSession()
@@ -185,7 +199,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 toggleCapture(false)
             }
         }
-
+        
+        self.establishPreviewImage()
     }
     
     /**
@@ -206,6 +221,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func setCameraBounds(){
         let cameraBounds = cameraPreviewView.bounds
         previewLayer.frame = cameraBounds
+    }
+    
+    /**
+     Set the imageview for the captgured photo
+     */
+    func establishPreviewImage(){
+        self.stillImageView = UIImageView(frame:CGRectMake(self.previewLayer.frame.origin.x, self.previewLayer.frame.origin.y, self.view.frame.width, self.view.frame.height));
+        self.stillImageView.hidden = true
+        self.stillImageView.contentMode = UIViewContentMode.ScaleAspectFit;
+        self.view.addSubview(self.stillImageView)
+
     }
     
 }

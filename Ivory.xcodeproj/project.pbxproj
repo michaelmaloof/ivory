@@ -103,10 +103,10 @@
 		228148EB1CBB0EE2004662BF /* Ivory */ = {
 			isa = PBXGroup;
 			children = (
+				228148EC1CBB0EE2004662BF /* AppDelegate.swift */,
 				2B2E74551CDBD5DB00C8D317 /* Model */,
 				2B2E74541CDBD5D200C8D317 /* View */,
 				2B2E74531CDBD5C600C8D317 /* Controller */,
-				228148EC1CBB0EE2004662BF /* AppDelegate.swift */,
 				228148F01CBB0EE2004662BF /* Main.storyboard */,
 				228148F31CBB0EE2004662BF /* Assets.xcassets */,
 				228148F51CBB0EE2004662BF /* LaunchScreen.storyboard */,
