@@ -25,6 +25,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var previewLayer: AVCaptureVideoPreviewLayer!
     var stillImage: UIImage!
     
+    var continueButton: UIButton!
+    var cancelButton: UIButton!
+    
     
 //*********************************
 //Stack
@@ -33,6 +36,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         toggleCapture(true)
+        //set up cancel and continue button
+        self.establishPostCaptureButtons()
         //set image on the bottom left to show photo library on click
         self.establishPhotoLibraryButton()
         //set up the camera
@@ -84,6 +89,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.toggleCapture(true)
         self.stillImageView.image = self.stillImage
         self.stillImageView.hidden = false
+        self.continueButton.hidden = false
+        self.cancelButton.hidden = false
     }
     
     /**
@@ -156,7 +163,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
     }
+    func continueWasTapped() {
     
+    }
+    
+    func cancelWasTapped(){
+    self.stillImageView.image = nil;
+        self.stillImageView.hidden = true
+        self.toggleCapture(false)
+        self.continueButton.hidden = true
+        self.cancelButton.hidden = true
+    }
 //*********************************
 //Mark Camera & Photo Set-up
 //*********************************
@@ -224,14 +241,39 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     /**
-     Set the imageview for the captgured photo
+     Set the imageview for the captured photo
      */
     func establishPreviewImage(){
         self.stillImageView = UIImageView(frame:CGRectMake(self.previewLayer.frame.origin.x, self.previewLayer.frame.origin.y, self.view.frame.width, self.view.frame.height));
         self.stillImageView.hidden = true
         self.stillImageView.contentMode = UIViewContentMode.ScaleAspectFit;
-        self.view.addSubview(self.stillImageView)
-
+        self.stillImageView.layer
+        self.view.insertSubview(self.stillImageView, belowSubview: self.cameraPreviewView)
     }
+    
+    /**
+     Set the continue and cancle buttons
+     */
+    func establishPostCaptureButtons(){
+        
+        //continue button
+        self.continueButton = UIButton(type: UIButtonType.System) as UIButton
+        self.continueButton.frame = CGRectMake(self.view.frame.size.width - 150, self.view.frame.size.height - 75, 100, 50)
+        self.continueButton.backgroundColor = UIColor.greenColor()
+        self.continueButton.setTitle("Continue", forState: UIControlState.Normal)
+        self.continueButton.addTarget(self, action: #selector(ViewController.continueWasTapped), forControlEvents: UIControlEvents.TouchUpInside)
+        self.continueButton.hidden = true
+        self.view.addSubview(self.continueButton)
+
+        //cancel button
+        self.cancelButton = UIButton(type: UIButtonType.System) as UIButton
+        self.cancelButton.frame = CGRectMake(50, self.view.frame.size.height - 75, 100, 50)
+        self.cancelButton.backgroundColor = UIColor.greenColor()
+        self.cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
+        self.cancelButton.addTarget(self, action: #selector(ViewController.cancelWasTapped), forControlEvents: UIControlEvents.TouchUpInside)
+        self.cancelButton.hidden = true
+        self.view.addSubview(self.cancelButton)
+    }
+    
     
 }
