@@ -28,7 +28,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var continueButton: UIButton!
     var cancelButton: UIButton!
     
-    
 //*********************************
 //Stack
 //*********************************
@@ -160,9 +159,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
-    }
     func continueWasTapped() {
     
     }
@@ -174,6 +170,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.continueButton.hidden = true
         self.cancelButton.hidden = true
     }
+    
 //*********************************
 //Mark Camera & Photo Set-up
 //*********************************
@@ -275,5 +272,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.cancelButton)
     }
     
+//*********************************
+//Segues
+//*********************************
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+    }
     
 }
