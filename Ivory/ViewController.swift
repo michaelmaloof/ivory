@@ -154,9 +154,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         stillImage = image
-        dismissViewControllerAnimated(true) { 
-            self.performSegueWithIdentifier("showImage", sender: nil)
-        }
+        dismissViewControllerAnimated(true, completion: nil)
+        displayCapturedPhoto()
     }
     
     func continueWasTapped() {
