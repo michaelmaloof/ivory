@@ -12,6 +12,7 @@ import AVFoundation
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //Camera Elements
+    @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var flashStackView: UIStackView!
     @IBOutlet weak var flashOnButton: UIButton!
     @IBOutlet weak var flashOffButton: UIButton!
@@ -34,6 +35,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var cancelButton: UIButton!
     
     var switchToFrontCamera = false
+    var frontFlash = false
     
 //*********************************
 //Stack
@@ -246,8 +248,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func switchButton(sender: AnyObject) {
         if switchToFrontCamera == false {
             switchToFrontCamera = true
+            flashButton.hidden = true
         } else {
             switchToFrontCamera = false
+            flashButton.hidden = false
         }
         establishCamera()
         setCameraBounds()
@@ -274,29 +278,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      - Parameter sender: on, off, and auto buttons
      */
     @IBAction func flashSelection(sender: AnyObject) {
-        do {
-            try currentDevice.lockForConfiguration()
-        } catch {
-            print("Can't Lock")
+        if !switchToFrontCamera {
+            do {
+                try currentDevice.lockForConfiguration()
+            } catch {
+                print("Can't Lock")
+            }
+            if sender.tag == 0 {
+                flashOnButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+                flashOffButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+                flashAutoButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+                currentDevice.flashMode = .On
+            } else if sender.tag == 1 {
+                flashOnButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+                flashOffButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+                flashAutoButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+                currentDevice.flashMode = .Off
+            } else if sender.tag == 2 {
+                flashOnButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+                flashOffButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+                flashAutoButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+                currentDevice.flashMode = .Auto
+            }
+            currentDevice.unlockForConfiguration()
+            flashStackView.hidden = true
         }
-        if sender.tag == 0 {
-            flashOnButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            flashOffButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            flashAutoButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            currentDevice.flashMode = .On
-        } else if sender.tag == 1 {
-            flashOnButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            flashOffButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            flashAutoButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            currentDevice.flashMode = .Off
-        } else if sender.tag == 2 {
-            flashOnButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            flashOffButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            flashAutoButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            currentDevice.flashMode = .Auto
-        }
-        currentDevice.unlockForConfiguration()
-        flashStackView.hidden = true
     }
     
     /**

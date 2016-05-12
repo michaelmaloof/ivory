@@ -141,6 +141,7 @@
                         <outlet property="capturePhoto" destination="USZ-nT-gD4" id="Usy-qK-Mhi"/>
                         <outlet property="capturedImage" destination="vPs-K9-gek" id="jed-hk-PDR"/>
                         <outlet property="flashAutoButton" destination="Y6M-PT-OTC" id="ja2-wi-SmB"/>
+                        <outlet property="flashButton" destination="EhX-rp-hcr" id="427-oh-9JU"/>
                         <outlet property="flashOffButton" destination="J2J-iP-RDy" id="kcS-IK-ZC9"/>
                         <outlet property="flashOnButton" destination="aWm-xC-2I0" id="0iL-fk-eOY"/>
                         <outlet property="flashStackView" destination="gad-gW-X7G" id="Okg-Ke-psb"/>
