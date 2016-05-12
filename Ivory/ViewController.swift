@@ -28,6 +28,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var continueButton: UIButton!
     var cancelButton: UIButton!
     
+    var switchToFrontCamera = false
+    
 //*********************************
 //Stack
 //*********************************
@@ -183,11 +185,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         captureSession.sessionPreset = AVCaptureSessionPresetPhoto
         
         let backCamera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let videoDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
+        var frontCamera: AVCaptureDevice!
+        
+        for device in videoDevices{
+            let device = device as! AVCaptureDevice
+            if device.position == AVCaptureDevicePosition.Front {
+                frontCamera = device
+                break
+            }
+        }
         
         var input: AVCaptureDeviceInput!
         
         do {
-            input = try AVCaptureDeviceInput(device: backCamera)
+            if switchToFrontCamera {
+                input = try AVCaptureDeviceInput(device: frontCamera)
+            } else {
+                input = try AVCaptureDeviceInput(device: backCamera)
+            }
         } catch let error as NSError {
             print(error.debugDescription)
             input = nil
@@ -214,6 +230,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
         self.establishPreviewImage()
+    }
+    
+    /**
+     Switch camera to front or back
+     
+     - Parameter sender: switch button
+     */
+    @IBAction func switchButton(sender: AnyObject) {
+        if switchToFrontCamera == false {
+            switchToFrontCamera = true
+        } else {
+            switchToFrontCamera = false
+        }
+        establishCamera()
+        setCameraBounds()
     }
     
     /**
