@@ -12,6 +12,10 @@ import AVFoundation
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //Camera Elements
+    @IBOutlet weak var flashStackView: UIStackView!
+    @IBOutlet weak var flashOnButton: UIButton!
+    @IBOutlet weak var flashOffButton: UIButton!
+    @IBOutlet weak var flashAutoButton: UIButton!
     @IBOutlet weak var cameraPreviewView: UIView!
     @IBOutlet weak var capturePhoto: UIButton!
     @IBOutlet weak var capturedImage: UIImageView!
@@ -20,6 +24,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var stillImageView: UIImageView!
     
     //Camera Variables
+    let currentDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     var captureSession: AVCaptureSession!
     var stillImageOutput: AVCaptureStillImageOutput!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -66,6 +71,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      @param sender the capture button
      */
     @IBAction func captureButtonWasTapped(sender: UIButton) {
+        flashStackView.hidden = true
         let videoConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo)
         videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
         stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {(sampleBuffer, error) in
@@ -245,6 +251,52 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         establishCamera()
         setCameraBounds()
+    }
+    
+    //MARK: Flash
+    
+    /**
+     Hides and shows options for flash
+     
+     - Parameter sender: flash button
+     */
+    @IBAction func flashButton(sender: AnyObject) {
+        if flashStackView.hidden {
+            flashStackView.hidden = false
+        } else {
+            flashStackView.hidden = true
+        }
+    }
+    
+    /**
+     Toggle flash on, off or auto and sets the label color to show which one is active
+     
+     - Parameter sender: on, off, and auto buttons
+     */
+    @IBAction func flashSelection(sender: AnyObject) {
+        do {
+            try currentDevice.lockForConfiguration()
+        } catch {
+            print("Can't Lock")
+        }
+        if sender.tag == 0 {
+            flashOnButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            flashOffButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            flashAutoButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            currentDevice.flashMode = .On
+        } else if sender.tag == 1 {
+            flashOnButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            flashOffButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            flashAutoButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            currentDevice.flashMode = .Off
+        } else if sender.tag == 2 {
+            flashOnButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            flashOffButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            flashAutoButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            currentDevice.flashMode = .Auto
+        }
+        currentDevice.unlockForConfiguration()
+        flashStackView.hidden = true
     }
     
     /**

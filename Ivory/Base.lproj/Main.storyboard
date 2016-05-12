@@ -64,16 +64,59 @@
                                             <action selector="switchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0o1-bf-4z4"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhX-rp-hcr">
+                                        <rect key="frame" x="8" y="28" width="37" height="30"/>
+                                        <state key="normal" title="Flash"/>
+                                        <connections>
+                                            <action selector="flashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5As-Ma-MkK"/>
+                                        </connections>
+                                    </button>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gad-gW-X7G">
+                                        <rect key="frame" x="53" y="28" width="108" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWm-xC-2I0">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <state key="normal" title="On"/>
+                                                <connections>
+                                                    <action selector="flashSelection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qmU-yX-63u"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2J-iP-RDy">
+                                                <rect key="frame" x="38" y="0.0" width="30" height="30"/>
+                                                <state key="normal" title="Off">
+                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="flashSelection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZHG-CH-qYD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6M-PT-OTC">
+                                                <rect key="frame" x="76" y="0.0" width="32" height="30"/>
+                                                <state key="normal" title="Auto"/>
+                                                <connections>
+                                                    <action selector="flashSelection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jzZ-BS-mUO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Nn2-v2-Yhf"/>
+                                            <constraint firstAttribute="width" constant="108" id="vnF-vm-9Ff"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="gad-gW-X7G" firstAttribute="centerY" secondItem="EhX-rp-hcr" secondAttribute="centerY" id="EUa-Pn-LwI"/>
                                     <constraint firstItem="vPs-K9-gek" firstAttribute="leading" secondItem="5Oe-8O-l7m" secondAttribute="leadingMargin" id="GTs-qR-jLN"/>
                                     <constraint firstAttribute="bottom" secondItem="USZ-nT-gD4" secondAttribute="bottom" constant="8" id="Lij-jY-doO"/>
                                     <constraint firstAttribute="bottom" secondItem="vPs-K9-gek" secondAttribute="bottom" constant="8" id="Rbq-z5-2Ya"/>
                                     <constraint firstItem="USZ-nT-gD4" firstAttribute="centerX" secondItem="5Oe-8O-l7m" secondAttribute="centerX" id="WcO-MI-x1M"/>
+                                    <constraint firstItem="EhX-rp-hcr" firstAttribute="leading" secondItem="5Oe-8O-l7m" secondAttribute="leadingMargin" id="WoW-Rr-dHc"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="hPp-Wb-ZlC" secondAttribute="trailing" id="e7b-uY-OIt"/>
                                     <constraint firstItem="vPs-K9-gek" firstAttribute="bottom" secondItem="5Oe-8O-l7m" secondAttribute="bottomMargin" constant="8" id="kSB-4l-cR5"/>
                                     <constraint firstItem="hPp-Wb-ZlC" firstAttribute="top" secondItem="5Oe-8O-l7m" secondAttribute="topMargin" constant="20" id="njc-Uf-VN4"/>
+                                    <constraint firstItem="EhX-rp-hcr" firstAttribute="top" secondItem="5Oe-8O-l7m" secondAttribute="topMargin" constant="20" id="rz3-Op-hos"/>
+                                    <constraint firstItem="gad-gW-X7G" firstAttribute="leading" secondItem="EhX-rp-hcr" secondAttribute="trailing" constant="8" id="taw-Jb-Fnj"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -97,6 +140,10 @@
                         <outlet property="cameraPreviewView" destination="5Oe-8O-l7m" id="YHe-gr-ALW"/>
                         <outlet property="capturePhoto" destination="USZ-nT-gD4" id="Usy-qK-Mhi"/>
                         <outlet property="capturedImage" destination="vPs-K9-gek" id="jed-hk-PDR"/>
+                        <outlet property="flashAutoButton" destination="Y6M-PT-OTC" id="ja2-wi-SmB"/>
+                        <outlet property="flashOffButton" destination="J2J-iP-RDy" id="kcS-IK-ZC9"/>
+                        <outlet property="flashOnButton" destination="aWm-xC-2I0" id="0iL-fk-eOY"/>
+                        <outlet property="flashStackView" destination="gad-gW-X7G" id="Okg-Ke-psb"/>
                         <outlet property="imageTapRecognizer" destination="HpG-zR-uJQ" id="lpb-OG-aZD"/>
                         <outlet property="taglineLabel" destination="OAL-fx-aSl" id="G9T-ME-qs1"/>
                     </connections>
