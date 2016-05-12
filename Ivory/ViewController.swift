@@ -248,12 +248,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     /**
-     Set the continue and cancle buttons
+     Set the continue and cancel buttons
      */
     func establishPostCaptureButtons(){
         
         //continue button
-        continueButton = UIButton(type: UIButtonType.System) as UIButton
+        continueButton = UIButton(type: .System)
         customizePostCaptureButton(continueButton, location: self.view.frame.size.width - 150, title: "Continue", method: #selector(continueWasTapped))
 
         //cancel button
@@ -261,6 +261,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         customizePostCaptureButton(cancelButton, location: 50, title: "Cancel", method: #selector(cancelWasTapped))
     }
     
+    /**
+     Customize post capture buttons (continue/cancel)
+     
+     - Parameter button: the button to set
+     - Parameter location: the x-coordinate for the button
+     - Parameter title: the title for the button
+     - Parameter method: the selector to be called on button press
+     */
     func customizePostCaptureButton(button: UIButton, location: CGFloat, title: String, method: Selector) {
         button.frame = CGRectMake(location, self.view.frame.size.height - 75, 100, 50)
         button.backgroundColor = UIColor.darkGrayColor()
