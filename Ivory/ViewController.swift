@@ -253,22 +253,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func establishPostCaptureButtons(){
         
         //continue button
-        self.continueButton = UIButton(type: UIButtonType.System) as UIButton
-        self.continueButton.frame = CGRectMake(self.view.frame.size.width - 150, self.view.frame.size.height - 75, 100, 50)
-        self.continueButton.backgroundColor = UIColor.greenColor()
-        self.continueButton.setTitle("Continue", forState: UIControlState.Normal)
-        self.continueButton.addTarget(self, action: #selector(ViewController.continueWasTapped), forControlEvents: UIControlEvents.TouchUpInside)
-        self.continueButton.hidden = true
-        self.view.addSubview(self.continueButton)
+        continueButton = UIButton(type: UIButtonType.System) as UIButton
+        customizePostCaptureButton(continueButton, location: self.view.frame.size.width - 150, title: "Continue", method: #selector(continueWasTapped))
 
         //cancel button
-        self.cancelButton = UIButton(type: UIButtonType.System) as UIButton
-        self.cancelButton.frame = CGRectMake(50, self.view.frame.size.height - 75, 100, 50)
-        self.cancelButton.backgroundColor = UIColor.greenColor()
-        self.cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
-        self.cancelButton.addTarget(self, action: #selector(ViewController.cancelWasTapped), forControlEvents: UIControlEvents.TouchUpInside)
-        self.cancelButton.hidden = true
-        self.view.addSubview(self.cancelButton)
+        cancelButton = UIButton(type: .System)
+        customizePostCaptureButton(cancelButton, location: 50, title: "Cancel", method: #selector(cancelWasTapped))
+    }
+    
+    func customizePostCaptureButton(button: UIButton, location: CGFloat, title: String, method: Selector) {
+        button.frame = CGRectMake(location, self.view.frame.size.height - 75, 100, 50)
+        button.backgroundColor = UIColor.darkGrayColor()
+        button.setTitle(title, forState: .Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.addTarget(self, action: method, forControlEvents: .TouchUpInside)
+        button.layer.cornerRadius = 5.0
+        button.hidden = true
+        self.view.addSubview(button)
     }
     
 //*********************************
